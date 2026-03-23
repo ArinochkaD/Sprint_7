@@ -35,7 +35,7 @@ class OrderData:
             [],
         )
 
-    def toMap(self) -> dict:
+    def toMap(self):
         return {
             'firstName': self.firstName,
             'lastName': self.lastName,
@@ -59,7 +59,7 @@ class OrderData:
             deliveryDate = None,
             comment = None,
             color = None,
-    ) -> OrderData:
+    ):
         return OrderData(
             firstName if firstName is not None else self.firstName,
             lastName if lastName is not None else self.lastName,

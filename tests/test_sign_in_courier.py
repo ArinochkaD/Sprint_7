@@ -10,7 +10,8 @@ class TestSignInCourier:
     @allure.title('Проверка успешной авторизации курьера.')
     def test_sign_in_courier(self, registered_credentials: Credentials):
         url = Urls.BASE_URL + Urls.LOGIN_PATH
-        response = requests.post(url, registered_credentials.toLoginMap())
+        with allure.step("Запрос авторизации курьера."):
+            response = requests.post(url, registered_credentials.toLoginMap())
         assert response.status_code == 200 and response.json()['id'] is not None
 
     @allure.feature('Функциональность авторизации курьера.')
@@ -28,7 +29,8 @@ class TestSignInCourier:
     ])
     def test_error_sign_in_incorrect_data(self, data):
         url = Urls.BASE_URL + Urls.LOGIN_PATH
-        response = requests.post(url, data)
+        with allure.step("Запрос авторизации курьера с неверными данными."):
+            response = requests.post(url, data)
         assert response.status_code == 404 and SignInErrorsText.NOT_FOUND in response.json()['message']
 
     @allure.feature('Функциональность авторизации курьера.')
@@ -46,5 +48,6 @@ class TestSignInCourier:
     ])
     def test_error_sign_in_without_data(self, data):
         url = Urls.BASE_URL + Urls.LOGIN_PATH
-        response = requests.post(url, data)
+        with allure.step("Запрос авторизации курьера с отсутствием данных."):
+            response = requests.post(url, data)
         assert response.status_code == 400 and SignInErrorsText.BAD_REQUEST in response.json()['message']

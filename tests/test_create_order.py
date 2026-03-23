@@ -23,5 +23,6 @@ class TestCreateOrder:
         data = deafault_order.copyWith(
             color = color
         )
-        response = requests.post(url, json.dumps(data.toMap()), headers = {'Content-Type': 'application/json'})
+        with allure.step("Запрос создания заказа."):
+            response = requests.post(url, json.dumps(data.toMap()), headers = {'Content-Type': 'application/json'})
         assert response.status_code == 201 and response.json()['track'] is not None
